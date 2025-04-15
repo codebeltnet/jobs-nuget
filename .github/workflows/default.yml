@@ -1,0 +1,71 @@
+name: NuGet by Microsoft
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: The version of your project, e.g., 1.0.0.
+        required: true
+        type: string
+      environment:
+        description: When specified, the environment secret will be used, and not the secret passed from the caller workflow.
+        required: false
+        type: string
+        default: ''
+      configuration:
+        description: Defines the build configuration. Default is Release.
+        required: false
+        type: string
+        default: 'Release'
+      level:
+        description: Sets the verbosity level of the command. Allowed values are quiet, normal and detailed. The default is quiet.
+        required: false
+        type: string
+        default: 'quiet'
+      downloadBuildArtifactName:
+        description: The name of the downloaded build artifact. Default, when left empty, is 'format('NuGet-{0}', inputs.configuration)'.
+        required: false
+        type: string
+        default: ''
+      timeout-minutes:
+        description: The maximum time in minutes to allow the job to run. Default is 15 minutes.
+        required: false
+        type: number
+        default: 15
+    secrets:
+      NUGET_TOKEN:
+        required: true
+
+jobs:
+  deploy:
+    if: ${{ inputs.environment == '' }}
+    name: 🚀 Deploy v${{ inputs.version }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: codebeltnet/nuget-push@v1
+        with:
+          token: ${{ secrets.NUGET_TOKEN }}
+          configuration: ${{ inputs.configuration }}
+          level: ${{ inputs.level }}
+          downloadBuildArtifactName: ${{ inputs.configuration) }}
+
+  deploy_environment:
+    if: ${{ inputs.environment != '' }}
+    name: 🚀 Deploy v${{ inputs.version }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    environment: ${{ inputs.environment }}
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: codebeltnet/nuget-push@v1
+        with:
+          token: ${{ secrets.NUGET_TOKEN }}
+          configuration: ${{ inputs.configuration }}
+          level: ${{ inputs.level }}
+          downloadBuildArtifactName: ${{ inputs.configuration) }}
