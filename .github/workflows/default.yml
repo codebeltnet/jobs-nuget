@@ -42,9 +42,6 @@ jobs:
     name: 🚀 Deploy v${{ inputs.version }}
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.timeout-minutes }}
-    permissions:
-      contents: write
-      packages: write
     steps:
       - uses: codebeltnet/nuget-push@v1
         with:
@@ -59,13 +56,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.timeout-minutes }}
     environment: ${{ inputs.environment }}
-    permissions:
-      contents: write
-      packages: write
     steps:
       - uses: codebeltnet/nuget-push@v1
         with:
           token: ${{ secrets.NUGET_TOKEN }}
           configuration: ${{ inputs.configuration }}
           level: ${{ inputs.level }}
-          downloadBuildArtifactName: ${{ inputs.configuration }}
+          downloadBuildArtifactName: ${{ inputs.downloadBuildArtifactName }}
