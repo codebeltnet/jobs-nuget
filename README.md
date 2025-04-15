@@ -17,6 +17,8 @@ This repository contains reusable workflows for deploying NuGet packages from wi
 
 - [default.yml](.github/workflows/default.yml) - the default workflow that:
   - determines the job to invoke based on the environment input,
+  - add the Mono repository,
+  - installs the Mono package,
   - [deployes the NuGet package](https://github.com/codebeltnet/nuget-push).
 
 ### Usage
