@@ -51,7 +51,7 @@ jobs:
           token: ${{ secrets.NUGET_TOKEN }}
           configuration: ${{ inputs.configuration }}
           level: ${{ inputs.level }}
-          downloadBuildArtifactName: ${{ inputs.configuration) }}
+          downloadBuildArtifactName: ${{ inputs.downloadBuildArtifactName }}
 
   deploy_environment:
     if: ${{ inputs.environment != '' }}
