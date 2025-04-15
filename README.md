@@ -73,7 +73,7 @@ jobs:
     secrets: inherit
 ```
 
-## Contributing to Reusable Workflows for SonarQube Cloud
+## Contributing to Reusable Workflows for NuGet by Microsoft
 
 Contributions are welcome! 
 Feel free to submit issues, feature requests, or pull requests to help improve these workflows.
